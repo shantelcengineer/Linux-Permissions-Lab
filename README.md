@@ -24,10 +24,9 @@ mkdir /Development /Operations /Analytics
 #### Add Dummy Files to Each Directory
 Use the `touch` command to create several blank files in each directory (no text editor used):
 
-touch /Development/dev_file1.txt /Development/dev_file2.txt
-touch /Operations/ops_file1.txt /Operations/ops_file2.txt
-touch /Analytics/data_file1.txt /Analytics/data_file2.txt
-
+touch /Development/dev_file{1..3}.txt
+touch /Operations/ops_file{1..3}.txt
+touch /Analytics/data_file{1..3}.txt
 
 
 ### **Step 2: Create Linux Groups**
