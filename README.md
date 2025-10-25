@@ -36,21 +36,42 @@ groupadd Developers
 groupadd Operations
 groupadd "Data Analysts"
 
-
 Verify group creation:
 
 cat /etc/group | grep -E "Developers|Operations|Data Analysts"
 
+### **Step 3: Create User Accounts**
+Create the following users and assign them to their respective groups.
 
+| Name | Username | Email | Group |
+|------|-----------|--------|--------|
+| Jess Waller | jwaller | jwaller@levelupbank.com | Developers |
+| Blake Dorsey | bdorsey | bdorsey@levelupbank.com | Operations |
+| Joey Ewart | jewart | jewart@levelupbank.com | Data Analysts |
 
-### **Step 3: Assign Group Ownership and Permissions**
-Each group should have access only to its own directory.
+#### Commands:
+
+useradd -m -G Developers -c "Jess Waller, jwaller@linuxtest.com" jwaller
+useradd -m -G Operations -c "Blake Dorsey, bdorsey@linuxtest.com" bdorsey
+useradd -m -G "Data Analysts" -c "Joey Ewart, jewart@linuxtest.com" jewart
+
+> The `-m` flag creates a home directory for each user.  
+> The `-G` flag assigns the user to the specified group.
+
+Set passwords for each user:
+
+passwd jwaller
+passwd bdorsey
+passwd jewart
+
+### **Step 4: Assign Group Ownership and Permissions**
+Now we have created each user, we want to provide each user with Ownership of their assigned Directories
 
 #### Change Group Ownership
 
-chown :Developers /Development
-chown :Operations /Operations
-chown :"Data Analysts" /Analytics
+chown :jwaller dev_file{1..3}.txt
+chown :bdorsey ops_file{1..3}.txt
+chown :jewart data_file{1..3}.txt
 
 
 #### Set Permissions (Read, Write, Execute for Group Only)
@@ -65,29 +86,6 @@ chmod 770 /Analytics
 > - `0` denies access to others.
 
 
-### **Step 4: Create User Accounts**
-Create the following users and assign them to their respective groups.
-
-| Name | Username | Email | Group |
-|------|-----------|--------|--------|
-| Jess Waller | jwaller | jwaller@levelupbank.com | Developers |
-| Blake Dorsey | bdorsey | bdorsey@levelupbank.com | Operations |
-| Joey Ewart | jewart | jewart@levelupbank.com | Data Analysts |
-
-#### Commands:
-
-useradd -m -G Developers -c "Jess Waller, jwaller@levelupbank.com" jwaller
-useradd -m -G Operations -c "Blake Dorsey, bdorsey@levelupbank.com" bdorsey
-useradd -m -G "Data Analysts" -c "Joey Ewart, jewart@levelupbank.com" jewart
-
-> The `-m` flag creates a home directory for each user.  
-> The `-G` flag assigns the user to the specified group.
-
-Set passwords for each user:
-
-passwd jwaller
-passwd bdorsey
-passwd jewart
 
 
 ### **Step 5: Verify Directory Access**
